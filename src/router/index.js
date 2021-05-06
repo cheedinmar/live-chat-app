@@ -1,15 +1,31 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import welcome from '@/components/welcome'
 
-vue.use(Router)
+import {
+    createRouter, 
+    createWebHistory
+ } from 'vue-router'
+ import welcome from '../components/welcome.vue'
 
-export default new Router({
-    routes:[
-        {
-            path:'./',
-            name:'welcome',
-            component:welcome
-        }
-    ]
-})
+const routes = [
+    {
+        path:'/',
+        name:'welcome',
+        component:welcome
+    }
+]
+const router = createRouter({
+    history: createWebHistory(),
+    routes:routes,
+    scrollBehavior (to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        return { top: 0 }
+      }
+    }
+  })
+
+//   const router = new VueRouter({
+//     Routes // short for `routes: routes`
+//   })
+
+export default router
