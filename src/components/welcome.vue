@@ -8,6 +8,8 @@
           <form @submit.prevent='enterChat'>
           <label for='name'>Enter Your Name:</label>
           <input type='text' name='name' v-model='name'>
+           <!--will only display if feedback is true || when feedback is not null-->
+          <p v-if="feedback" class='red-text '>{{feedback}}</p>
           <button class='btn teal'>Enter Chat</button>
           </form>
         </div>
@@ -20,12 +22,19 @@ export default{
   name: 'welcome',
   data(){
     return{
-      name :null
+      name :null, 
+      feedback:null
     }
   },
   methods:{
     enterChat(){
-      console.log(this.name );
+      if(this.name){
+        //to redirect to the chat component using the route component 
+        this.$router.push({name:"chat", params:{name:this.name}})
+        //this param is not going to be seen inside the URL
+      }else{
+        this.feedback ='you must enter a name to join'
+      }
     }
   }
 }
@@ -33,5 +42,15 @@ export default{
 </script>
 
 <style>
+.welcome{
+  max-width:400px;
+  margin-top:100px;
 
+}
+.welcome h2{
+  font-size:3em; 
+}
+.welcome button{
+  margin:30px auto;  
+}
 </style>
